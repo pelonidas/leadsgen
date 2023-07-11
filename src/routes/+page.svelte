@@ -49,7 +49,7 @@
 	const table = createSvelteTable(options);
 </script>
 
-<div class="p-12">
+<div class="m-auto p-12">
 	<table>
 		<thead class="border">
 			{#each $table.getHeaderGroups() as headerGroup}
