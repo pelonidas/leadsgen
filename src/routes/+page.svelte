@@ -15,10 +15,6 @@
 			},
 			{
 				accessorKey: 'email',
-				header: 'Age'
-			},
-			{
-				accessorKey: 'email',
 				header: 'Email'
 			},
 			{
@@ -53,13 +49,13 @@
 	const table = createSvelteTable(options);
 </script>
 
-<div class="p-2">
+<div class="p-12">
 	<table>
 		<thead class="border">
 			{#each $table.getHeaderGroups() as headerGroup}
 				<tr>
 					{#each headerGroup.headers as header}
-						<th class="border">
+						<th class="border px-5">
 							{#if !header.isPlaceholder}
 								<svelte:component
 									this={flexRender(header.column.columnDef.header, header.getContext())}
@@ -74,7 +70,7 @@
 			{#each $table.getRowModel().rows as row}
 				<tr>
 					{#each row.getVisibleCells() as cell}
-						<td class="border">
+						<td class="border px-5">
 							<svelte:component this={flexRender(cell.column.columnDef.cell, cell.getContext())} />
 						</td>
 					{/each}
