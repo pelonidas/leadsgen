@@ -78,5 +78,5 @@
 			{/each}
 		</tbody>
 	</table>
-	<div class="h-4" />
+	<a href="http://127.0.0.1:8081" target="_blank">Test</a>
 </div>
