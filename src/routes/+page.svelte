@@ -78,5 +78,5 @@
 			{/each}
 		</tbody>
 	</table>
-	<a href="http://127.0.0.1:8081" target="_blank">Test</a>
+	<a href="https://test-ga-brown.vercel.app/" target="_blank">Test</a>
 </div>
