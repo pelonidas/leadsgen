@@ -46,6 +46,7 @@ const PostSchema = z.object({
 
 export const POST = (async ({ request }) => {
 	const body = PostSchema.parse(await request.json());
+	console.log(body);
 
 	await db.transaction(async () => {
 		const [{ leadId }] = await db
