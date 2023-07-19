@@ -1,6 +1,6 @@
 import { pgTable, text, uuid, timestamp, uniqueIndex, integer } from 'drizzle-orm/pg-core';
 
-import { relations, sql } from 'drizzle-orm';
+import { relations, sql, type InferModel } from 'drizzle-orm';
 
 export const lead = pgTable('lead', {
 	name: text('name').notNull(),
@@ -71,3 +71,6 @@ export const analytics = pgTable(
 		};
 	}
 );
+
+export type Lead = InferModel<typeof lead>;
+export type Analytics = InferModel<typeof analytics>;
