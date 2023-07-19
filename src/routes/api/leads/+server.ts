@@ -47,23 +47,25 @@ const PostSchema = z.object({
 export const POST = (async ({ request }) => {
 	const body = PostSchema.parse(await request.json());
 
-	const [{ leadId }] = await db
-		.insert(lead)
-		.values({
-			name: 'Hello world',
-			email: body.email,
-			phoneNumber: body.phoneNumber,
-			status: body.status,
-			service: body.service
-		})
-		.returning({
-			leadId: lead.id
-		});
+	await db.transaction(async () => {
+		const [{ leadId }] = await db
+			.insert(lead)
+			.values({
+				name: 'Hello world',
+				email: body.email,
+				phoneNumber: body.phoneNumber,
+				status: body.status,
+				service: body.service
+			})
+			.returning({
+				leadId: lead.id
+			});
 
-	await db.insert(analytics).values({
-		leadId,
-		city: body.analytics.city,
-		device: 'desktop'
+		await db.insert(analytics).values({
+			leadId,
+			city: body.analytics.city,
+			device: 'desktop'
+		});
 	});
 
 	return new Response(
