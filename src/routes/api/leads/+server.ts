@@ -51,7 +51,7 @@ export const POST = (async ({ request }) => {
 		const [{ leadId }] = await db
 			.insert(lead)
 			.values({
-				name: body.name,
+				name: 'hhhhhhhhhhhhh',
 				email: body.email,
 				phoneNumber: body.phoneNumber,
 				status: body.status,
