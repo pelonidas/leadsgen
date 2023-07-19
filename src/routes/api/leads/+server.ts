@@ -45,10 +45,8 @@ const PostSchema = z.object({
 });
 
 export const POST = (async ({ request }) => {
-	const body = PostSchema.parse(await request.json());
-	console.log(body);
-
 	await db.transaction(async () => {
+		const body = PostSchema.parse(await request.json());
 		const [{ leadId }] = await db
 			.insert(lead)
 			.values({
