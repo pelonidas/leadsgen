@@ -71,3 +71,10 @@ export const analytics = pgTable(
 		};
 	}
 );
+
+export const analyticsRelation = relations(analytics, ({ one }) => ({
+	lead: one(lead, {
+		fields: [analytics.leadId],
+		references: [lead.id]
+	})
+}));
