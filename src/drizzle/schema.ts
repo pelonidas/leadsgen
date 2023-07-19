@@ -1,6 +1,6 @@
 import { pgTable, text, uuid, timestamp, uniqueIndex, integer } from 'drizzle-orm/pg-core';
 
-import { sql } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 
 export const lead = pgTable('lead', {
 	name: text('name').notNull(),
@@ -14,6 +14,13 @@ export const lead = pgTable('lead', {
 	service: text('service'),
 	createdAt: timestamp('created_at', { mode: 'string' }).defaultNow()
 });
+
+export const leadsRelation = relations(lead, ({ one }) => ({
+	analytics: one(analytics, {
+		fields: [lead.id],
+		references: [analytics.leadId]
+	})
+}));
 
 export const analytics = pgTable(
 	'analytics',
