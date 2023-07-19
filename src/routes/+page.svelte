@@ -49,13 +49,13 @@
 	const table = createSvelteTable(options);
 </script>
 
-<div class="m-auto p-12">
-	<table>
-		<thead class="border">
+<div class="m-auto h-full w-full py-6">
+	<table class="w-full text-body">
+		<thead>
 			{#each $table.getHeaderGroups() as headerGroup}
 				<tr>
 					{#each headerGroup.headers as header}
-						<th class="border px-5">
+						<th class="bg-white px-5 py-2 first:rounded-tl-3xl last:rounded-tr-3xl">
 							{#if !header.isPlaceholder}
 								<svelte:component
 									this={flexRender(header.column.columnDef.header, header.getContext())}
