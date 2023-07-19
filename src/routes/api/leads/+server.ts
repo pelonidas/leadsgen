@@ -34,7 +34,7 @@ const PostSchema = z.object({
 		lcReferrer: z.string().optional(),
 		lcSource: z.string().optional(),
 		lcTerm: z.string().optional(),
-		longtitude: z.string().optional(),
+		longitude: z.string().optional(),
 		os: z.string().optional(),
 		pageVisits: z.number().optional(),
 		pageVisitedList: z.string().optional(),
@@ -63,6 +63,7 @@ export const POST = (async ({ request }) => {
 
 		await db.insert(analytics).values({
 			leadId,
+			...body.analytics,
 			device: 'desktop'
 		});
 	});
