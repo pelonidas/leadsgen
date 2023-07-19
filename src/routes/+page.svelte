@@ -4,7 +4,7 @@
 	import type { TableOptions } from '@tanstack/svelte-table';
 	// import type { Lead } from '../drizzle/schema';
 
-	export let data;
+	// export let data;
 
 	// const options = writable<TableOptions<Lead>>({
 	// 	data: data.leads,
