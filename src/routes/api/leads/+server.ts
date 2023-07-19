@@ -45,28 +45,27 @@ const PostSchema = z.object({
 });
 
 export const POST = (async ({ request }) => {
-	await db.transaction(async () => {
-		const body = PostSchema.parse(await request.json());
-		console.log(body);
-		const [{ leadId }] = await db
-			.insert(lead)
-			.values({
-				name: 'hhhhhhhhhhhhh',
-				email: body.email,
-				phoneNumber: body.phoneNumber,
-				status: body.status,
-				service: body.service
-			})
-			.returning({
-				leadId: lead.id
-			});
+	const body = PostSchema.parse(await request.json());
 
-		await db.insert(analytics).values({
-			leadId,
-			...body.analytics,
-			device: 'desktop'
+	const [{ leadId }] = await db
+		.insert(lead)
+		.values({
+			name: 'Hello world',
+			email: body.email,
+			phoneNumber: body.phoneNumber,
+			status: body.status,
+			service: body.service
+		})
+		.returning({
+			leadId: lead.id
 		});
+
+	await db.insert(analytics).values({
+		leadId,
+		city: body.analytics.city,
+		device: 'desktop'
 	});
+
 	return new Response(
 		JSON.stringify({
 			message: 'Lead created successfully'
