@@ -51,7 +51,7 @@ export const POST = (async ({ request }) => {
 		const [{ leadId }] = await db
 			.insert(lead)
 			.values({
-				name: 'Hello world',
+				name: body.name,
 				email: body.email,
 				phoneNumber: body.phoneNumber,
 				status: body.status,
@@ -61,10 +61,41 @@ export const POST = (async ({ request }) => {
 				leadId: lead.id
 			});
 
+		const analyticsData = body.analytics;
+
 		await db.insert(analytics).values({
 			leadId,
-			city: body.analytics.city,
-			device: 'desktop'
+			allTrafficSources: analyticsData.allTrafficSources,
+			browser: analyticsData.browser,
+			city: analyticsData.city,
+			country: analyticsData.country,
+			countryCode: analyticsData.countryCode,
+			device: analyticsData.device,
+			fcCampaign: analyticsData.fcCampaign,
+			fcChannel: analyticsData.fcChannel,
+			fcContent: analyticsData.fcContent,
+			fcLanding: analyticsData.fcLanding,
+			fcMedium: analyticsData.fcMedium,
+			fcReferrer: analyticsData.fcReferrer,
+			fcSource: analyticsData.fcSource,
+			fcTerm: analyticsData.fcTerm,
+			ipAddress: analyticsData.ipAddress,
+			latitude: analyticsData.latitude,
+			lcCampaign: analyticsData.lcCampaign,
+			lcChannel: analyticsData.lcChannel,
+			lcContent: analyticsData.lcContent,
+			lcLanding: analyticsData.lcLanding,
+			lcMedium: analyticsData.lcMedium,
+			lcReferrer: analyticsData.lcReferrer,
+			lcSource: analyticsData.lcSource,
+			lcTerm: analyticsData.lcTerm,
+			os: analyticsData.os,
+			pageVisits: analyticsData.pageVisits,
+			pageVisitedList: analyticsData.pageVisitedList,
+			region: analyticsData.region,
+			timePassed: analyticsData.timePassed,
+			timeZone: analyticsData.timeZone,
+			longtitude: analyticsData.longitude
 		});
 	});
 
