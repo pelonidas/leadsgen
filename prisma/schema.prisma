@@ -7,6 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model AuthUser {
+  id           String        @id @unique
+  auth_session AuthSession[]
+  auth_key     AuthKey[]
+  name         String
+  username     String        @unique
+  created_at   DateTime?     @default(now()) @db.Timestamp(6)
+  // here you can add custom fields for your user
+  // e.g. name, email, username, roles, etc.
+
+  @@map("auth_user")
+}
+
+model AuthSession {
+  id             String   @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_session")
+}
+
+model AuthKey {
+  id              String   @id @unique
+  hashed_password String?
+  user_id         String
+  primary_key     Boolean
+  expires         BigInt?
+  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_key")
+}
+
 model analytics {
   id                  String    @id(map: "analytics_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   all_traffic_sources String?
