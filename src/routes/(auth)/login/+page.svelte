@@ -26,5 +26,5 @@
 	>
 </form>
 <p class="mt-3 text-center text-slate-500">
-	Don’t have an account? <a class="text-primary underline" href="/login">Register Now</a>
+	Don’t have an account? <a class="text-primary underline" href="/register">Register Now</a>
 </p>
