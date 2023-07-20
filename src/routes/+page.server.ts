@@ -1,9 +1,8 @@
-import { db } from '$lib/db';
-import { lead } from '../drizzle/schema';
+import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params }) => {
-	const leads = await db.select().from(lead);
+export const load = (async () => {
+	const leads = await prisma.lead.findMany();
 	return {
 		leads
 	};
