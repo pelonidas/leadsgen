@@ -3,10 +3,10 @@
 	import Topbar from '$lib/components/topbar.svelte';
 </script>
 
-<div class="flex justify-between h-[100dvh] px-7 pt-5">
-	<Sidebar/>
-	<div>
-		<Topbar />
+<div class="flex h-[100dvh] flex-col gap-5 p-5">
+	<Topbar />
+	<div class="flex h-full gap-5">
+		<Sidebar />
 		<slot />
 	</div>
 </div>

@@ -67,7 +67,7 @@
 	const table = createSvelteTable(options);
 </script>
 
-<div class="m-auto h-full w-full py-6">
+<div class="m-auto h-full w-full">
 	<table class="w-full text-body">
 		<thead>
 			{#each $table.getHeaderGroups() as headerGroup}
