@@ -12,8 +12,7 @@ model AuthUser {
   auth_session AuthSession[]
   auth_key     AuthKey[]
   name         String
-  username     String        @unique
-  created_at   DateTime?     @default(now()) @db.Timestamp(6)
+  email        String        @unique
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
 

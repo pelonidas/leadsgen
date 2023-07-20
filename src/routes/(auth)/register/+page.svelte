@@ -16,8 +16,8 @@
 		<label for="name">Name</label>
 		<input type="text" id="name" name="name" required class="h-12 w-96 border px-3" />
 
-		<label for="username">Username</label>
-		<input type="text" id="username" name="username" required class="h-12 w-96 border px-3" />
+		<label for="email">Email</label>
+		<input type="text" id="email" name="email" required class="h-12 w-96 border px-3" />
 
 		<label for="password">Password</label>
 		<input type="password" id="password" name="password" required class="h-12 w-96 border px-3" />
