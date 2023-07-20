@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthUser {
+  id           String        @id @unique
+  auth_session AuthSession[]
+  auth_key     AuthKey[]
+  name         String
+  username     String        @unique
+  created_at   DateTime?     @default(now()) @db.Timestamp(6)
+  // here you can add custom fields for your user
+  // e.g. name, email, username, roles, etc.
+
+  @@map("auth_user")
+}
+
+model AuthSession {
+  id             String   @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_session")
+}
+
+model AuthKey {
+  id              String   @id @unique
+  hashed_password String?
+  user_id         String
+  primary_key     Boolean
+  expires         BigInt?
+  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_key")
+}
+
+model analytics {
+  id                  String    @id(map: "analytics_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  all_traffic_sources String?
+  browser             String?
+  city                String?
+  country             String?
+  country_code        String?
+  device              String?
+  fc_campaign         String?
+  fc_channel          String?
+  fc_content          String?
+  fc_landing          String?
+  fc_medium           String?
+  fc_referrer         String?
+  fc_source           String?
+  fc_term             String?
+  ip_address          String?
+  latitude            String?
+  lc_campaign         String?
+  lc_channel          String?
+  lc_content          String?
+  lc_landing          String?
+  lc_medium           String?
+  lc_referrer         String?
+  lc_source           String?
+  lc_term             String?
+  longtitude          String?
+  os                  String?
+  page_visits         Int?
+  page_visited_list   String?
+  region              String?
+  time_passed         Int?
+  time_zone           String?
+  created_at          DateTime? @default(now()) @db.Timestamp(6)
+  lead_id             String    @unique(map: "lead_id_unique_contstraint") @db.Uuid
+  lead                lead      @relation(fields: [lead_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "analytics_lead_id_fk")
+}
+
+model lead {
+  name         String
+  id           String     @id(map: "lead_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  phone_number String?
+  email        String?
+  status       String?
+  service      String?
+  created_at   DateTime?  @default(now()) @db.Timestamp(6)
+  analytics    analytics?
+}

@@ -2,11 +2,11 @@
 	import { writable } from 'svelte/store';
 	import { createSvelteTable, getCoreRowModel, flexRender } from '@tanstack/svelte-table';
 	import type { TableOptions } from '@tanstack/svelte-table';
-	import type { Lead } from '../drizzle/schema';
+	import type { lead } from '@prisma/client';
 
 	export let data;
 
-	const options = writable<TableOptions<Lead>>({
+	const options = writable<TableOptions<lead>>({
 		data: data.leads,
 		columns: [
 			{
@@ -18,7 +18,7 @@
 				header: 'Email'
 			},
 			{
-				accessorKey: 'phoneNumber',
+				accessorKey: 'phone_number',
 				header: 'Phone Number'
 			},
 			{
@@ -32,9 +32,9 @@
 			{
 				accessorKey: 'createdAt',
 				accessorFn: (row) => {
-					if (!row.createdAt) return '';
+					if (!row.created_at) return '';
 					const locale: Intl.LocalesArgument = 'sk-SK';
-					const date = new Date(row.createdAt);
+					const date = new Date(row.created_at);
 					return `${date.toLocaleDateString(locale)} ${date.toLocaleTimeString(locale, {
 						hour: '2-digit',
 						minute: '2-digit'
