@@ -10,12 +10,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		const form = await request.formData();
-		const username = form.get('username');
+		const email = form.get('email');
 		const password = form.get('password');
 		// check for empty values
-		if (typeof username !== 'string' || typeof password !== 'string') return fail(400);
+		if (typeof email !== 'string' || typeof password !== 'string') return fail(400);
 		try {
-			const key = await auth.useKey('username', username, password);
+			const key = await auth.useKey('email', email, password);
 			const session = await auth.createSession(key.userId);
 			locals.auth.setSession(session);
 		} catch {

@@ -13,25 +13,25 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		const form = await request.formData();
-		const username = form.get('username');
 		const password = form.get('password');
 		const name = form.get('name');
+		const email = form.get('email');
 
 		// check for empty values
-		if (typeof username !== 'string' || typeof password !== 'string' || typeof name !== 'string') {
+		if (typeof email !== 'string' || typeof password !== 'string' || typeof name !== 'string') {
 			return fail(400);
 		}
 
 		try {
 			const user = await auth.createUser({
 				primaryKey: {
-					providerId: 'username',
-					providerUserId: username,
+					providerId: 'email',
+					providerUserId: email,
 					password
 				},
 				attributes: {
-					username,
-					name
+					email,
+					name,
 				}
 			});
 			const session = await auth.createSession(user.userId);
