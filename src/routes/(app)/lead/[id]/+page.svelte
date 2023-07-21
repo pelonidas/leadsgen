@@ -12,9 +12,12 @@
 			'marker'
 		)) as google.maps.MarkerLibrary;
 		const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
-		const position = { lat: 48.14889854004167, lng: 17.115311877718547 };
+		const position = {
+			lat: parseFloat(analytics?.latitude ?? '0'),
+			lng: parseFloat(analytics?.longtitude ?? '0')
+		};
 		map = new Map(document.getElementById('map') as HTMLElement, {
-			center: { lat: 48.156, lng: 17.138 },
+			center: position,
 			zoom: 8,
 			mapId: '29623ef80228a6b'
 		});
@@ -75,39 +78,60 @@
 	</script>
 </svelte:head>
 
-<section>
-	<h4>ID: {data.lead.id}</h4>
-	<h4>Name: {data.lead.name}</h4>
-	<h4>Email: {data.lead.email}</h4>
-	<h4>Phone Number: {data.lead.phone_number}</h4>
-	<h4>Service: {data.lead.service}</h4>
-	<h4>Status: {data.lead.status}</h4>
-</section>
+<section class="flex w-full flex-col">
+	<div class="flex items-center justify-between">
+		<h1 class="text-4xl font-bold">
+			{data.lead.name}
+		</h1>
+		<div class="flex flex-col text-sm text-body/40">
+			<span>
+				<strong>ID: </strong>{data.lead.id}
+			</span>
+			<span>
+				<strong>Created: </strong>{data.lead.created_at?.toLocaleDateString('sk-SK')}
+			</span>
+		</div>
+	</div>
+	<hr class="my-4 w-full border-body/20" />
+	<div class="grid grid-cols-3 gap-4">
+		<article class="flex flex-col gap-2 rounded-3xl bg-white p-4 shadow-md">
+			<h3 class="text-xl font-medium">Contact Information</h3>
+			<p><strong>Email:</strong> {data.lead.email}</p>
+			<p><strong>Phone Number:</strong> {data.lead.phone_number}</p>
+			<p><strong>Service:</strong> {data.lead.service}</p>
+			<p><strong>Status:</strong> {data.lead.status}</p>
+			<p>
+				<strong>Location: </strong>{analytics?.city}, {analytics?.country}, {analytics?.country_code}
+			</p>
+			<p><strong>Time Zone:</strong> {analytics?.time_zone}</p>
+		</article>
+		{#if analytics}
+			<article class="flex flex-col gap-2 rounded-3xl bg-white p-4 shadow-md">
+				<h3 class="text-xl font-medium">Device Information</h3>
+				<p><strong>Browser: </strong>{analytics.browser?.replace('undefined', '')}</p>
+				<p><strong>Device: </strong>{analytics.device}</p>
+				<p><strong>IP Address: </strong>{analytics.ip_address}</p>
+				<p><strong>OS: </strong>{analytics.os}</p>
+				<p><strong>Page Visits: </strong>{analytics.page_visits}</p>
+				<p>
+					<strong>Time Passed: </strong>{((analytics.time_passed || 0) / 1000 / 60).toFixed(2)} min
+				</p>
+			</article>
+			<article class="flex flex-col gap-2 rounded-3xl bg-white p-4 shadow-md">
+				<h3 class="text-xl font-medium">Analytics Information</h3>
+				<p><strong>Campaign: </strong>{analytics.lc_campaign}</p>
+				<p><strong>Channel: </strong>{analytics.lc_channel}</p>
+				<p><strong>Content: </strong>{analytics.lc_content}</p>
+				<p><strong>Landing: </strong>{analytics.lc_landing}</p>
+				<p><strong>Medium: </strong>{analytics.lc_medium}</p>
+				<p><strong>Referrer: </strong>{analytics.lc_referrer}</p>
+				<p><strong>Source: </strong>{analytics.lc_source}</p>
+				<p><strong>Term: </strong>{analytics.lc_term}</p>
+			</article>
+		{/if}
 
-{#if analytics}
-	<section>
-		<h4>Browser: {analytics.browser}</h4>
-		<h4>Device: {analytics.device}</h4>
-		<h4>OS: {analytics.os}</h4>
-		<h4>City: {analytics.city}</h4>
-		<h4>Region: {analytics.region}</h4>
-		<h4>Country: {analytics.country}</h4>
-		<h4>Country Code: {analytics.country_code}</h4>
-		<h4>Time Zone: {analytics.time_zone}</h4>
-		<h4>IP Address: {analytics.ip_address}</h4>
-		<h4>Campaign: {analytics.lc_campaign}</h4>
-		<h4>Channel: {analytics.lc_channel}</h4>
-		<h4>Content: {analytics.lc_content}</h4>
-		<h4>Landing: {analytics.lc_landing}</h4>
-		<h4>Medium: {analytics.lc_medium}</h4>
-		<h4>Referrer: {analytics.lc_referrer}</h4>
-		<h4>Source: {analytics.lc_source}</h4>
-		<h4>Term: {analytics.lc_term}</h4>
-		<h4>Created At: {analytics.created_at}</h4>
-		<h4>All Traffic Sources: {analytics.all_traffic_sources}</h4>
-		<h4>Page Visited List: {analytics.page_visited_list}</h4>
-		<h4>Page Visits: {analytics.page_visits}</h4>
-		<h4>Time Passed: {analytics.time_passed}</h4>
-	</section>
-	<div class="h-[400px] w-[400px]" id="map" />
-{/if}
+		<div class="col-span-3 h-[280px] max-h-fit w-full shrink">
+			<div id="map" class="h-full w-full" />
+		</div>
+	</div>
+</section>
