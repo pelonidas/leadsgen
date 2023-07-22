@@ -81,7 +81,7 @@
 <section class="flex w-full flex-col">
 	<div class="flex items-center justify-between">
 		<h1 class="text-4xl font-bold">
-			{data.lead.name}
+			{data.lead.name} - {data.lead.status}
 		</h1>
 		<div class="flex flex-col text-sm text-body/40">
 			<span>
@@ -89,6 +89,10 @@
 			</span>
 			<span>
 				<strong>Created: </strong>{data.lead.created_at?.toLocaleDateString('sk-SK')}
+				{data.lead.created_at?.toLocaleTimeString('sk-SK', {
+					hour: '2-digit',
+					minute: '2-digit'
+				})}
 			</span>
 		</div>
 	</div>
@@ -99,7 +103,6 @@
 			<p><strong>Email:</strong> {data.lead.email}</p>
 			<p><strong>Phone Number:</strong> {data.lead.phone_number}</p>
 			<p><strong>Service:</strong> {data.lead.service}</p>
-			<p><strong>Status:</strong> {data.lead.status}</p>
 			<p>
 				<strong>Location: </strong>{analytics?.city}, {analytics?.country}, {analytics?.country_code}
 			</p>

@@ -91,7 +91,7 @@
 				</tr>
 			{/each}
 		</thead>
-		<tbody class="border text-sm">
+		<tbody class="border text-xs">
 			{#each $table.getRowModel().rows as row}
 				<tr>
 					{#each row.getVisibleCells() as cell}
