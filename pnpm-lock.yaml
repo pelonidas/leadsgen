@@ -7,6 +7,9 @@ dependencies:
   '@lucia-auth/adapter-prisma':
     specifier: ^2.0.0
     version: 2.0.0(@prisma/client@5.0.0)(lucia-auth@1.8.0)
+  '@melt-ui/svelte':
+    specifier: ^0.24.1
+    version: 0.24.1(svelte@4.0.5)
   '@prisma/client':
     specifier: ^5.0.0
     version: 5.0.0(prisma@5.0.0)
@@ -45,6 +48,9 @@ devDependencies:
   '@iconify/svelte':
     specifier: ^3.1.4
     version: 3.1.4(svelte@4.0.5)
+  '@melt-ui/pp':
+    specifier: ^0.0.6
+    version: 0.0.6(@melt-ui/svelte@0.24.1)(svelte@4.0.5)
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.35.1
@@ -93,6 +99,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.4.3
     version: 3.4.5(postcss@8.4.25)(svelte@4.0.5)
+  svelte-sequential-preprocessor:
+    specifier: ^2.0.1
+    version: 2.0.1
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2
@@ -365,13 +374,11 @@ packages:
 
   /@floating-ui/core@1.3.1:
     resolution: {integrity: sha512-Bu+AMaXNjrpjh41znzHqaz3r2Nr8hHuHZT6V2LBKMhyMl0FgKA62PNYbqnfgmzOhoWZj70Zecisbo4H1rotP5g==}
-    dev: false
 
   /@floating-ui/dom@1.4.5:
     resolution: {integrity: sha512-96KnRWkRnuBSSFbj0sFGwwOUd8EkiecINVl0O9wiZlZ64EkpyAOG3Xc2vKKNJmru0Z7RqWNymA+6b8OZqjgyyw==}
     dependencies:
       '@floating-ui/core': 1.3.1
-    dev: false
 
   /@humanwhocodes/config-array@0.11.10:
     resolution: {integrity: sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==}
@@ -450,6 +457,27 @@ packages:
       '@prisma/client': 5.0.0(prisma@5.0.0)
       lucia-auth: 1.8.0
     dev: false
+
+  /@melt-ui/pp@0.0.6(@melt-ui/svelte@0.24.1)(svelte@4.0.5):
+    resolution: {integrity: sha512-89ABEJ6rZWyPWvSy++7+QVzAepesixHBBLPecNFoJm0kwVxj6gVMKLGJO56Cbx/+es7Y/kcHH0kLA2fl+GvedA==}
+    peerDependencies:
+      '@melt-ui/svelte': '>= 0.22.0'
+      svelte: ^3.55.0 || ^4.0.0
+    dependencies:
+      '@melt-ui/svelte': 0.24.1(svelte@4.0.5)
+      svelte: 4.0.5
+    dev: true
+
+  /@melt-ui/svelte@0.24.1(svelte@4.0.5):
+    resolution: {integrity: sha512-lSJKEpG1kh3+vmOvTzYR/PSfVQPb+DT1Oz8FoUFftofyK+N9CVJufG7213CroMTJFgMsO03R0PvRxYmzj9mp9Q==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      '@floating-ui/core': 1.3.1
+      '@floating-ui/dom': 1.4.5
+      focus-trap: 7.5.2
+      nanoid: 4.0.2
+      svelte: 4.0.5
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1429,6 +1457,11 @@ packages:
       mini-svg-data-uri: 1.4.4
     dev: false
 
+  /focus-trap@7.5.2:
+    resolution: {integrity: sha512-p6vGNNWLDGwJCiEjkSK6oERj/hEyI9ITsSwIUICBoKLlWiTWXJRfQibCwcoi50rTZdbi87qDtUlMCmQwsGSgPw==}
+    dependencies:
+      tabbable: 6.2.0
+
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
@@ -1789,6 +1822,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
@@ -2546,6 +2584,14 @@ packages:
       typescript: 5.1.6
     dev: true
 
+  /svelte-sequential-preprocessor@2.0.1:
+    resolution: {integrity: sha512-N5JqlBni6BzElxmuFrOPxOJnjsxh1cFDACLEVKs8OHBcx8ZNRO1p5SxuQex1m3qbLzAC8G99EHeWcxGkjyKjLQ==}
+    engines: {node: '>=16'}
+    dependencies:
+      svelte: 4.0.5
+      tslib: 2.6.0
+    dev: true
+
   /svelte@4.0.5:
     resolution: {integrity: sha512-PHKPWP1wiWHBtsE57nCb8xiWB3Ht7/3Kvi3jac0XIxUM2rep8alO7YoAtgWeGD7++tFy46krilOrPW0mG3Dx+A==}
     engines: {node: '>=16'}
@@ -2563,6 +2609,9 @@ packages:
       locate-character: 3.0.0
       magic-string: 0.30.1
       periscopic: 3.1.0
+
+  /tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}

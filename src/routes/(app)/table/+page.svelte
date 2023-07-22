@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
-	import { createSvelteTable, getCoreRowModel, flexRender } from '@tanstack/svelte-table';
+	import {
+		createSvelteTable,
+		getCoreRowModel,
+		flexRender,
+		renderComponent
+	} from '@tanstack/svelte-table';
 	import type { TableOptions } from '@tanstack/svelte-table';
 	import type { lead } from '@prisma/client';
+	import Select from '$lib/components/ui/select.svelte';
 
 	export let data;
 
 	const options = writable<TableOptions<lead>>({
 		data: data.leads,
 		columns: [
-			{
-				accessorKey: 'id',
-				header: 'ID'
-			},
 			{
 				accessorKey: 'name',
 				header: 'Name'
@@ -30,24 +32,6 @@
 				header: 'Service'
 			},
 			{
-				accessorKey: 'status',
-				header: 'Status'
-			},
-
-			// {
-			// 	accessorKey: 'createdAt',
-			// 	accessorFn: (row) => {
-			// 		if (!row.created_at) return '';
-			// 		const locale: Intl.LocalesArgument = 'sk-SK';
-			// 		const date = new Date(row.created_at);
-			// 		return `${date.toLocaleDateString(locale)} ${date.toLocaleTimeString(locale, {
-			// 			hour: '2-digit',
-			// 			minute: '2-digit'
-			// 		})}`;
-			// 	},
-			// 	header: 'Created At'
-			// },
-			{
 				accessorKey: 'analytics.device',
 				header: 'Device'
 			},
@@ -57,8 +41,31 @@
 				header: 'Medium'
 			},
 			{
+				accessorKey: 'status',
+				header: 'Status',
+				cell: ({ row }) => {
+					return renderComponent(Select, {
+						leadId: row.original.id,
+						currValue: row.original.status
+					});
+				}
+			},
+			{
 				accessorKey: 'analytics.lc_source',
 				header: 'Source'
+			},
+			{
+				accessorKey: 'createdAt',
+				accessorFn: (row) => {
+					if (!row.created_at) return '';
+					const locale: Intl.LocalesArgument = 'sk-SK';
+					const date = new Date(row.created_at);
+					return `${date.toLocaleDateString(locale)} ${date.toLocaleTimeString(locale, {
+						hour: '2-digit',
+						minute: '2-digit'
+					})}`;
+				},
+				header: 'Created At'
 			}
 		],
 		getCoreRowModel: getCoreRowModel()
@@ -84,7 +91,7 @@
 				</tr>
 			{/each}
 		</thead>
-		<tbody class="border">
+		<tbody class="border text-sm">
 			{#each $table.getRowModel().rows as row}
 				<tr>
 					{#each row.getVisibleCells() as cell}

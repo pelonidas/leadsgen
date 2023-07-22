@@ -1,5 +1,5 @@
 import prisma from '$lib/prisma';
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async () => {
 	const leads = await prisma.lead.findMany({
@@ -30,3 +30,17 @@ export const load = (async () => {
 		leads
 	};
 }) satisfies PageServerLoad;
+
+export const actions: Actions = {
+	updateStatus: async ({ request, params, url }) => {
+		console.log('test');
+		// await prisma.lead.update({
+		// 	where: {
+		// 		id: ''
+		// 	},
+		// 	data: {
+		// 		status: ''
+		// 	}
+		// })
+	}
+};
