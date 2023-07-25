@@ -9,12 +9,10 @@ datasource db {
 
 model AuthUser {
   id           String        @id @unique
-  auth_session AuthSession[]
-  auth_key     AuthKey[]
   name         String
   email        String        @unique
-  // here you can add custom fields for your user
-  // e.g. name, email, username, roles, etc.
+  auth_key     AuthKey[]
+  auth_session AuthSession[]
 
   @@map("auth_user")
 }
@@ -24,7 +22,7 @@ model AuthSession {
   user_id        String
   active_expires BigInt
   idle_expires   BigInt
-  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  auth_user      AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("auth_session")
@@ -36,7 +34,7 @@ model AuthKey {
   user_id         String
   primary_key     Boolean
   expires         BigInt?
-  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("auth_key")
@@ -85,8 +83,8 @@ model lead {
   id           String     @id(map: "lead_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   phone_number String?
   email        String?
-  status       String?
   service      String?
   created_at   DateTime?  @default(now()) @db.Timestamp(6)
+  status       String?
   analytics    analytics?
 }

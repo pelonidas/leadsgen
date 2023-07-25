@@ -1,7 +1,7 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load = (async () => {
+export const load: PageServerLoad = async () => {
 	const leads = await prisma.lead.findMany({
 		include: {
 			analytics: {
@@ -26,7 +26,8 @@ export const load = (async () => {
 			}
 		}
 	});
+
 	return {
 		leads
 	};
-}) satisfies PageServerLoad;
+};

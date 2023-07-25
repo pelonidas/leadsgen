@@ -6,7 +6,6 @@ const PostSchema = z.object({
 	name: z.string(),
 	email: z.string().email(),
 	phoneNumber: z.string(),
-	status: z.string().optional(),
 	service: z.string().optional(),
 	analytics: z.object({
 		allTrafficSources: z.string().optional(),
@@ -51,7 +50,6 @@ export const POST = (async ({ request }) => {
 			name: body.name,
 			email: body.email,
 			phone_number: body.phoneNumber,
-			status: body.status,
 			service: body.service,
 			analytics: {
 				create: {
