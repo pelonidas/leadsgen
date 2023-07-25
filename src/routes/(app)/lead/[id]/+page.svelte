@@ -119,6 +119,8 @@
 				<p>
 					<strong>Time Passed: </strong>{((analytics.time_passed || 0) / 1000 / 60).toFixed(2)} min
 				</p>
+				<p><strong>All Traffic Sources: </strong>{analytics.all_traffic_sources}</p>
+				<p><strong>Page Visited List:</strong>{analytics.page_visited_list}</p>
 			</article>
 			<article class="flex flex-col gap-2 rounded-3xl bg-white p-4 shadow-md">
 				<h3 class="text-xl font-medium">Analytics Information</h3>
