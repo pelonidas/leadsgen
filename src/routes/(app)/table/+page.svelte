@@ -80,7 +80,7 @@
 			{#each $table.getHeaderGroups() as headerGroup}
 				<tr>
 					{#each headerGroup.headers as header}
-						<th class="bg-white px-5 py-2 text-left first:rounded-tl-3xl last:rounded-tr-3xl">
+						<th class="bg-white px-3 py-2 text-left first:rounded-tl-2xl last:rounded-tr-2xl">
 							{#if !header.isPlaceholder}
 								<svelte:component
 									this={flexRender(header.column.columnDef.header, header.getContext())}
@@ -91,11 +91,11 @@
 				</tr>
 			{/each}
 		</thead>
-		<tbody class="border text-xs">
+		<tbody class="border text-sm">
 			{#each $table.getRowModel().rows as row}
 				<tr>
 					{#each row.getVisibleCells() as cell}
-						<td class="border px-5 py-2">
+						<td class="border px-3 py-2">
 							<a href="/lead/{row.original.id}">
 								<svelte:component
 									this={flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -108,3 +108,4 @@
 		</tbody>
 	</table>
 </div>
+<!-- <button on:click={() => console.log(data.find())} /> -->

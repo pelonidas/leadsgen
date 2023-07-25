@@ -1,7 +1,7 @@
 import prisma from '$lib/prisma';
-import type { Actions, PageServerLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
-export const load = (async () => {
+export const load: PageServerLoad = async () => {
 	const leads = await prisma.lead.findMany({
 		include: {
 			analytics: {
@@ -26,21 +26,8 @@ export const load = (async () => {
 			}
 		}
 	});
+
 	return {
 		leads
 	};
-}) satisfies PageServerLoad;
-
-export const actions: Actions = {
-	updateStatus: async ({ request, params, url }) => {
-		console.log('test');
-		// await prisma.lead.update({
-		// 	where: {
-		// 		id: ''
-		// 	},
-		// 	data: {
-		// 		status: ''
-		// 	}
-		// })
-	}
 };
