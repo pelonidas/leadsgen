@@ -7,7 +7,7 @@
 	const { label, trigger, menu, option, group } = createSelect();
 
 	const options = {
-		status: ['new lead', 'option 2', 'Strawberry', 'Cookies & Cream']
+		status: ['NOVÝ DOPYT', 'NAPLÁNOVANÁ KONZULTÁCIA', 'ABSOLVOVANÁ KONZULTÁCIA', 'NEZASTIHNUTEĽNÝ']
 	};
 
 	onMount(() => {
@@ -20,10 +20,9 @@
 	{$label || 'Select an option'}
 </button>
 
-<div class="menu" melt={$menu}>
+<div class="menu shadow-lg" melt={$menu}>
 	{#each Object.entries(options) as [key, arr]}
-		<div melt={$group(key)}>
-			<!-- <div class="label" melt={$groupLabel(key)}>{key}</div> -->
+		<div melt={$group(key)} class="divide-y">
 			{#each arr as item}
 				<button
 					on:click={() =>
@@ -55,15 +54,11 @@
 		@apply ring-0 !important;
 	}
 	.option {
-		@apply relative cursor-pointer rounded-md py-1 pl-8 pr-4 text-neutral-800;
+		@apply relative w-full cursor-pointer px-2 py-1 text-left text-neutral-800;
 		@apply focus:z-10;
 	}
 	.trigger {
-		@apply flex h-10 min-w-[220px] items-center justify-between rounded-md bg-white px-3;
+		@apply flex h-10 min-w-[220px] items-center rounded-md bg-white px-2 text-left;
 		@apply py-2 transition-opacity hover:opacity-90;
-	}
-	.check {
-		@apply absolute left-2 top-1/2 z-20;
-		translate: 0 calc(-50% + 1px);
 	}
 </style>

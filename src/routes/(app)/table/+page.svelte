@@ -108,4 +108,3 @@
 		</tbody>
 	</table>
 </div>
-<!-- <button on:click={() => console.log(data.find())} /> -->
